@@ -1,0 +1,4 @@
+#ifndef REQUESTWORKER_H
+#define REQUESTWORKER_H
+
+#endif // REQUESTWORKER_H
