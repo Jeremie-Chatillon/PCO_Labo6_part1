@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     bool debug = parser.isSet(dbgOption);
     int port = parser.value(portOption).toInt();
 
-    FileServer *server = new FileServer(port, debug);
+    FileServer *server = new FileServer(port, true);
     QObject::connect(server, &FileServer::closed, &a, &QCoreApplication::quit);
 
     return a.exec();

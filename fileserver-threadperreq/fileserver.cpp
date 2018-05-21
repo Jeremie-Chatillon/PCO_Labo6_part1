@@ -62,7 +62,7 @@ FileServer::FileServer(quint16 port, bool debug, QObject *parent) :
     QObject(parent),
     websocketServer(new QWebSocketServer(QStringLiteral("File Server"),
                                             QWebSocketServer::NonSecureMode, this)),
-    hasDebugLog(true)
+    hasDebugLog(debug)
 
 {
     requests = new fifoBuf<Request>();
