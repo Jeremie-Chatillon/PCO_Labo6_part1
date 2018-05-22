@@ -7,6 +7,8 @@ public:
     virtual void put(T item) = 0;
     virtual T get() = 0;
 
+    virtual ~AbstractBuffer(){}
+
 };
 
 #endif // ABSTRACTBUFFER_H

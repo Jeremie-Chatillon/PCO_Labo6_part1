@@ -18,6 +18,8 @@ public:
     QString getClientId() {
         return clientId;
     }
+
+    virtual ~Request(){}
 };
 
 #endif // REQUEST_H

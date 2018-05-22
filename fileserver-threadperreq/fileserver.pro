@@ -12,8 +12,7 @@ SOURCES += \
     fileserver.cpp \
     filereader.cpp \
     requesthandler.cpp \
-    responsedispatcherthread.cpp \
-    requestdispatcherthread.cpp
+    responsedispatcherthread.cpp
 
 HEADERS += \
     fileserver.h \

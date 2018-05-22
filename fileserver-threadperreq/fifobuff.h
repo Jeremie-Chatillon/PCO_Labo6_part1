@@ -7,6 +7,9 @@
 #include <QSemaphore>
 
 
+/**
+ * Méthode
+ */
 template<typename T>
 class fifoBuf: public AbstractBuffer<T> {
 private:
@@ -33,13 +36,11 @@ public:
         mutex->release();
 
         return ret;
-
     }
 
     ~fifoBuf(){
         delete list;
     }
-
 };
 
 

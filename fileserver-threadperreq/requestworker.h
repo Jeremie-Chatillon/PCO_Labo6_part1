@@ -6,13 +6,20 @@
 #include "request.h"
 #include "abstractbuffer.h"
 #include "response.h"
-#include "filereader.h"
 #include <QThread>
 #include <QWebSocket>
 #include <QDebug>
 #include <QString>
 
 #include "abstractbuffer.h"
+#include "requesthandler.h"
+
+/**
+ * @brief The RequestWorker class
+ * Classe traitant une Requête pour obtenir une réponse et la place
+ *  dans un buffer.
+ * Le thread est términé une fois que le message est traité
+ */
 class RequestWorker : public QThread
 {
 
@@ -25,35 +32,14 @@ public:
           m_debug(m_debug)
     {}
 
+    /**
+     * @brief run
+     * traitant une Requête pour obtenir une réponse et la place
+     *  dans un buffer.
+     */
     void run() Q_DECL_OVERRIDE {
-        QWebSocket *pClient = qobject_cast<QWebSocket *>(sender());
-
-        QString message = req.getFilePath();
-
-        if (m_debug)
-            qDebug() << "Message treated:" << message;
-        //if (pClient) {
-            FileReader reader(message, m_debug);
-            if (reader.fileExists()) {
-                Response r(req, reader.readAll());
-
-                responses->put(r);
-
-                //pClient->sendTextMessage(r.toJson());
-                if (m_debug) {
-                    QString json = r.toJson();
-                    json.truncate(200);
-                    qDebug() << "Sending response:" << json;
-                }
-            } else {
-                Response r(req, "File not found!");
-
-                responses->put(r);
-                //pClient->sendTextMessage(r.toJson());
-                if (m_debug)
-                    qDebug() << "Sending response:" << r.toJson();
-            }
-        //}
+        RequestHandler rh(req, m_debug);
+        responses->put(rh.handle());
     }
 
 
